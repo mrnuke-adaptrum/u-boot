@@ -58,20 +58,26 @@ int spi_flash_probe_bus_cs(unsigned int busnum, unsigned int cs,
 	char *str;
 	int ret;
 
+	/* Search for SPI_FLASH nodes directly. */
+	ret = uclass_get_device_by_seq(UCLASS_SPI_FLASH, busnum, devp);
+	if (ret) {
+		/* SPI_FLASH node not found. Try searching for SPI slaves. */
 #if defined(CONFIG_SPL_BUILD) && defined(CONFIG_USE_TINY_PRINTF)
-	str = "spi_flash";
+		str = "spi_flash";
 #else
-	char name[30];
+		char name[30];
 
-	snprintf(name, sizeof(name), "spi_flash@%d:%d", busnum, cs);
-	str = strdup(name);
+		snprintf(name, sizeof(name), "spi_flash@%d:%d", busnum, cs);
+		str = strdup(name);
 #endif
-	ret = spi_get_bus_and_cs(busnum, cs, max_hz, spi_mode,
-				  "spi_flash_std", str, &bus, &slave);
-	if (ret)
-		return ret;
+		ret = spi_get_bus_and_cs(busnum, cs, max_hz, spi_mode,
+					 "spi_flash_std", str, &bus, &slave);
+		if (ret)
+			return ret;
 
-	*devp = slave->dev;
+		*devp = slave->dev;
+	}
+
 	return 0;
 }
 
