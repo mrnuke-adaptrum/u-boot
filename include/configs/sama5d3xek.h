@@ -88,7 +88,7 @@
 #define CONFIG_CMD_NAND_TRIMFFS
 #endif
 
-#define CONFIG_PHY_MICREL_KSZ9021
+#define CONFIG_PHY_MICREL_KSZ90X1
 
 /* USB */
 
