@@ -26,7 +26,6 @@
 #define CONFIG_BCM_SF2_ETH
 #define CONFIG_BCM_SF2_ETH_GMAC
 
-#define CONFIG_PHYLIB
 #define CONFIG_PHY_BROADCOM
 #define CONFIG_PHY_RESET_DELAY 10000 /* PHY reset delay in us*/
 
